@@ -1,0 +1,20 @@
+{
+  "siteName": "Real Estate World",
+  "tagline": "Your Trusted Guide to Real Estate in Dubai & Beyond",
+  "logoText": "Real Estate World",
+  "nav": [
+    { "label": "Home", "href": "/index.html" },
+    { "label": "Real Estate", "href": "/pages/blog-list.html" }
+  ],
+  "social": {
+    "twitter": "https://twitter.com/Real Estate World",
+    "linkedin": "https://linkedin.com/company/Real Estate World"
+  },
+  "footer": {
+    "text": "© 2026 GlobalInfoNest. All rights reserved. Empowering smarter property decisions.",
+    "links": [
+      { "label": "Contact Us", "href": "#" },
+      { "label": "Privacy Policy", "href": "#" }
+    ]
+  }
+}

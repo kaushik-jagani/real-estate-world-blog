@@ -1,0 +1,46 @@
+[
+  {
+    "slug": "luxury-apartments-dubai-guide",
+    "title": "Luxury Apartments in Dubai: Smart Guide for Modern Buyers (2026)",
+    "author": "Sarah Mitchell",
+    "date": "2026-04-18",
+    "readTime": "8 min read",
+    "category": "Real Estate",
+    "excerpt": "Dubai has become one of the top cities in the world for modern and luxury living. From high-rise towers to beachfront homes, the city offers premium apartments designed for comfort and lifestyle.",
+    "coverImage": "/assets/images/posts/luxury-apartments-dubai-guide/cover.jpg",
+    "featured": true
+  },
+  {
+    "slug": "luxury-apartments-usa-guide",
+    "title": "Luxury Apartments in USA: Complete Guide to Premium Living & Smart Investment (2026)",
+    "author": "James Carter",
+    "date": "2026-04-18",
+    "readTime": "10 min read",
+    "category": "Real Estate",
+    "excerpt": "The United States is one of the most attractive real estate markets globally. From New York to Miami, discover premium housing options backed by a stable economy and consistent demand.",
+    "coverImage": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
+    "featured": false
+  },
+  {
+    "slug": "luxury-apartments-monaco-guide",
+    "title": "Luxury Apartments in Monaco: Complete Guide to Elite Living (2026)",
+    "author": "Elena Dubois",
+    "date": "2026-04-18",
+    "readTime": "10 min read",
+    "category": "Real Estate",
+    "excerpt": "Monaco is one of the most exclusive real estate destinations in the world. Explore premium sea-view apartments, penthouses, and why this market offers strong long-term investment value.",
+    "coverImage": "/assets/images/posts/luxury-apartments-monaco-guide/cover.jpg",
+    "featured": false
+  },
+  {
+    "slug": "luxury-apartments-switzerland-guide",
+    "title": "Luxury Apartments in Switzerland: Complete Guide to Premium Living (2026)",
+    "author": "Lukas Meier",
+    "date": "2026-04-18",
+    "readTime": "10 min read",
+    "category": "Real Estate",
+    "excerpt": "Switzerland offers stability, safety, and high quality of life. Explore luxury apartments in Zurich, Geneva, and alpine regions with insights on pricing and investment potential.",
+    "coverImage": "/assets/images/posts/luxury-apartments-switzerland-guide/cover.jpg",
+    "featured": false
+  }
+]
