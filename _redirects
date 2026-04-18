@@ -1,0 +1,3 @@
+# Netlify redirects for clean URLs
+# Static files and folders are served first automatically
+# No redirects needed — all pages use physical index.html files
