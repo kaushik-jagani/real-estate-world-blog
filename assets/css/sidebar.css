@@ -203,7 +203,7 @@
     position: static;
     height: auto;
     overflow: visible;
-    overflow-x: visible;
+    overflow-x: hidden;
   }
   .trending-reads-list {
     display: flex;

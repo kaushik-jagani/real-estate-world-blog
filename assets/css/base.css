@@ -98,6 +98,7 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body {
@@ -106,7 +107,8 @@ body {
   line-height: var(--line-height-body);
   color: var(--color-text);
   background-color: var(--color-bg);
-  min-width: 360px;
+  min-width: 320px;
+  overflow-x: hidden;
   transition: background-color var(--t-base), color var(--t-base);
 }
 
