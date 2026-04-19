@@ -1,3 +1,4 @@
-# Netlify redirects for clean URLs
-# Static files and folders are served first automatically
-# No redirects needed — all pages use physical index.html files
+# Netlify redirects
+# Physical files take priority, so blog/index.html serves /blog/
+# This catch-all handles any /blog/slug/ that doesn't have a physical folder
+/blog/*  /pages/blog-post.html  200

@@ -276,7 +276,7 @@
           .catch(function () { return []; })
           .then(function (posts) {
           // Sort by date descending (newest first)
-          posts.sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+          posts.sort(function (a, b) { return (b.date || '').localeCompare(a.date || '') || (b.id || 0) - (a.id || 0); });
 
           allMetas = posts.map(function (p) {
             return {

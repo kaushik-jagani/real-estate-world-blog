@@ -1,41 +1,95 @@
-# Real Estate World — Project Reference for Claude
+# Real Estate World — CLAUDE.md
 
-> **READ THIS FILE BEFORE EVERY IMPLEMENTATION.**  
-> This document is the single source of truth for project structure, patterns, rules, and conventions.
-
----
-
-## 1. Project Overview
-
-**Site name:** Real Estate World  
-**Domain:** realestateworld.blog (to be configured)  
-**Purpose:** Global real estate blog — property market insights, trends, buying guides, and analysis for cities worldwide.  
-**Category:** Only "Real Estate" — no category switcher anywhere.  
-**Scope:** We are a **blog only** — we do NOT sell, buy, or broker properties.  
-**Analytics:** Google Analytics `G-01LZXPD19D` on EVERY HTML page.  
-**AdSense:** Fully compliant layout — ad slots marked with `<!-- AD SLOT -->` comments only.
+> **READ THIS FILE BEFORE EVERY IMPLEMENTATION.**
+> Single source of truth for structure, patterns, rules, and conventions.
 
 ---
 
-## 2. Tech Stack
+## Workflow Orchestration
 
-- Pure HTML5 / CSS3 / Vanilla JavaScript (ES5-compatible)
-- No frameworks, no build tools, no npm required
-- Data driven: every post is a `post.json` file fetched at runtime
-- Central index: `data/posts/index.json` — flat array of post metadata (single fetch, scales to 11k+)
-- Fonts: Google Fonts — Inter (body) + Playfair Display (headings)
-- Accent color: `#0EA5E9` (sky blue)
+### 1. Plan Mode Default
+- Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
+- If something goes sideways, STOP and re-plan immediately
+- Use plan mode for verification steps, not just building
+- Write detailed specs upfront before touching any file
+
+### 2. Before Every Implementation
+- Read this file fully before starting any task
+- Always edit source files in `pages/` — then sync copies to clean URL folders
+- Never expose `/pages/blog-post.html?slug=` in visible UI links
+- Never load `theme.js` twice in any page — causes double-toggle with no effect
+
+### 3. Verification Before Done
+- Never mark a task complete without proving it works
+- Ask yourself: "Would a senior dev approve this?"
+- Run tests, check logs, demonstrate correctness
+- Diff behavior between main and your changes when relevant
+
+### 4. Demand Elegance (Balanced)
+- For non-trivial changes: pause and ask "is there a more elegant way?"
+- If a fix feels hacky: implement the elegant solution instead
+- Skip this for simple, obvious fixes — don't over-engineer
+- Challenge your own work before presenting it
+
+### 5. Autonomous Bug Fixing
+- When given a bug report: just fix it — don't ask for hand-holding
+- Point at logs, errors, failing tests — then resolve them
+- Zero context switching required from the user
+- Go fix failing issues without being told exactly how
+
+### 6. Self-Improvement Loop
+- After ANY correction: note the pattern to avoid repeating it
+- Write rules for yourself that prevent the same mistake
+- Ruthlessly iterate until mistake rate drops
 
 ---
 
-## 3. Folder Structure
+## Task Management
+
+1. **Plan First**: Write plan with checkable steps before starting
+2. **Verify Plan**: Confirm approach before implementation
+3. **Track Progress**: Mark items complete as you go
+4. **Explain Changes**: High-level summary at each step
+5. **Document Results**: Note what was done and why
+6. **Capture Lessons**: Record corrections to avoid repeat mistakes
+
+---
+
+## Core Principles
+
+- **Simplicity First**: Make every change as simple as possible. Impact minimal code.
+- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
+- **Minimal Impact**: Only touch what's necessary. No side effects, no new bugs.
+- **Data-Driven**: Every post is a `post.json`. `data/posts/index.json` is the single source of truth — never duplicate data.
+- **No Frameworks**: Pure HTML5 / CSS3 / Vanilla JS only. No npm, no build tools.
+
+---
+
+## Project Identity
+
+- **Site name:** Real Estate World
+- **Domain:** realestate.globalinfonest.com (Netlify)
+- **GitHub repo:** `kaushik-jagani/real-estate-world-blog` (private)
+- **Purpose:** Global real estate blog — insights, trends, buying guides
+- **Scope:** Blog only — we do NOT sell, buy, or broker properties
+- **Category:** "Real Estate" only — no category switcher anywhere
+- **Footer:** © 2026 GlobalInfoNest
+- **Analytics:** Google Analytics `G-01LZXPD19D` — on EVERY HTML page
+- **AdSense:** Ad slots hidden by default (`display: none`) until real ads are placed
+- **Accent color:** `#0EA5E9` (sky blue)
+- **Fonts:** Inter (body) + Playfair Display (headings) via Google Fonts
+
+---
+
+## Folder Structure
 
 ```
 /
-├── index.html                        ← Home landing page (hero + features + recent posts)
+├── index.html                        ← Home landing page (hero + recent posts)
 ├── .htaccess                         ← Apache clean URL routing
+├── _redirects                        ← Netlify rewrite rules (dynamic blog routing)
 ├── claude.md                         ← THIS FILE (read before any work)
-├── docs/                             ← Project documentation
+├── docs/
 │   └── PROJECT-GUIDE.md              ← Full dev guide, adding blogs, architecture
 ├── assets/
 │   ├── css/
@@ -83,11 +137,9 @@
     └── post-card.html                ← Reference snippet
 ```
 
-**Important:** Always edit files in `pages/` then sync copies to clean URL folders.
-
 ---
 
-## 4. URL Structure & Navigation
+## URL Structure & Navigation
 
 | Page | Clean URL | Source file | Nav item |
 |---|---|---|---|
@@ -99,45 +151,52 @@
 | Privacy Policy | `/privacy-policy` | `/pages/privacy-policy.html` | — |
 | Disclaimer | `/disclaimer` | `/pages/disclaimer.html` | — |
 
-**Logo click** → `/` (home)  
-**Never expose** `/pages/blog-post.html?slug=` in visible UI links.
-
-For local dev with Live Server: clean URL folders (`blog/`, `about/`, etc.) contain `index.html` copies.
-
 ---
 
-## 5. Central Index — `data/posts/index.json`
+## Adding a New Blog Post
 
-This is the **single source of truth** for all post listings. One fetch serves the home page, blog list, and sidebar.
+### Quick Steps (2 minutes):
+1. Drop `post.json` into `data/posts/[slug]/`
+2. Append entry to `data/posts/index.json`
+3. Netlify: done — `_redirects` handles routing automatically
+4. Local dev only: create `blog/[slug]/index.html` (copy of `pages/blog-post.html`)
+5. Optionally add cover image to `assets/images/posts/[slug]/cover.jpg`
 
+### index.json Entry Format:
 ```json
-[
-  {
-    "slug": "luxury-apartments-dubai-guide",
-    "title": "Luxury Apartments in Dubai: Smart Guide for Modern Buyers (2026)",
-    "author": "Admin",
-    "date": "2026-04-18",
-    "readTime": "8 min read",
-    "category": "Real Estate",
-    "excerpt": "Dubai has become one of the top cities...",
-    "coverImage": "/assets/images/posts/luxury-apartments-dubai-guide/cover.jpg",
-    "featured": true
-  }
-]
+{
+  "id": 5,
+  "slug": "your-post-slug",
+  "title": "Post Title",
+  "author": "Author Name",
+  "date": "2026-04-19",
+  "readTime": "8 min read",
+  "category": "Real Estate",
+  "excerpt": "Short excerpt here...",
+  "coverImage": "/assets/images/posts/your-post-slug/cover.jpg",
+  "featured": false
+}
 ```
 
-**Adding a new entry:** Append a new object to this array. Fields: `slug`, `title`, `author`, `date`, `readTime`, `category`, `excerpt`, `coverImage`, `featured` (boolean).
+### Sort Order:
+- By `date` descending → then by `id` descending (tiebreaker for same-day posts)
+- Next post ID = **5**
+
+### What You Do NOT Need to Do:
+- No JS/CSS/HTML changes
+- No rebuilds or manual deployments
+- Blog list and sidebar auto-discover new posts from `index.json`
 
 ---
 
-## 6. Post JSON Format
+## Post JSON Schema
 
-Every post lives at `data/posts/[slug]/post.json`. Full schema:
+Every post lives at `data/posts/[slug]/post.json`:
 
 ```json
 {
   "slug": "post-slug-here",
-  "url": "https://realestateworld.blog/blog/post-slug-here",
+  "url": "https://realestate.globalinfonest.com/blog/post-slug-here",
   "title": "Post Title",
   "author": "Author Name",
   "date": "2026-04-18",
@@ -156,7 +215,7 @@ Every post lives at `data/posts/[slug]/post.json`. Full schema:
     "type": "article",
     "title": "OG Title",
     "description": "OG Description",
-    "url": "https://realestateworld.blog/blog/slug",
+    "url": "https://realestate.globalinfonest.com/blog/slug",
     "site_name": "Real Estate World",
     "image": "https://...",
     "locale": "en_US"
@@ -189,49 +248,59 @@ Every post lives at `data/posts/[slug]/post.json`. Full schema:
 }
 ```
 
-### Section types rendered by render.js:
-| Property | Rendered as |
-|---|---|
-| `content` | `<p>` paragraph |
-| `list` | `<ul>` bullet list |
-| `subsections[]` | `<h3>` + content or list per item |
-| `faqs[]` | Collapsible accordion items |
-| `table` | Striped scrollable `<table>` |
-| `quote` | Large stylised blockquote |
-| `callout` | Coloured callout box (info/tip/warning) |
-| `image` | Full-width rounded `<img>` (lazy) |
+### Section Types (rendered by render.js):
+
+| Property       | Renders As |
+|----------------|------------|
+| `content`      | `<p>` paragraph |
+| `list`         | `<ul>` bullet list |
+| `subsections[]`| `<h3>` + content or list per item |
+| `faqs[]`       | Collapsible accordion |
+| `table`        | Striped scrollable `<table>` |
+| `quote`        | Large stylised blockquote |
+| `callout`      | Coloured callout box (info/tip/warning) |
+| `image`        | Full-width rounded `<img>` (lazy) |
 
 ---
 
-## 7. Adding a New Blog Post (Step-by-Step)
+## Known Post Slugs
 
-### Quick version (2 minutes):
-1. Drop `post.json` into `data/posts/[slug]/`
-2. Add entry to `data/posts/index.json`
-3. Create `blog/[slug]/index.html` (copy of `pages/blog-post.html`)
-4. Optionally add cover image to `assets/images/posts/[slug]/cover.jpg`
-5. Done — visit `/blog/[slug]`
-
-### Detailed steps:
-1. **Receive `post.json`** from user/author
-2. **Create folder:** `data/posts/[slug]/`
-3. **Place `post.json`** in that folder
-4. **Add to index.json:** Append a new object to the array in `data/posts/index.json` with: slug, title, author, date, readTime, category, excerpt, coverImage, featured
-5. **Cover image:** Either use an Unsplash URL in `coverImage` field, or create `assets/images/posts/[slug]/cover.jpg`
-6. **Create clean URL folder:** `blog/[slug]/index.html` — copy of `pages/blog-post.html`
-7. **Test:** Visit `/blog/[slug]`
-
-### What you do NOT need to do:
-- No code changes to any JS/CSS/HTML files
-- No rebuilds, no deployments (static site)
-- The blog-list page auto-discovers new posts from `index.json`
-- The sidebar auto-shows other posts from `index.json`
+| ID | Slug |
+|----|------|
+| 1  | luxury-apartments-dubai-guide |
+| 2  | luxury-apartments-usa-guide |
+| 3  | luxury-apartments-monaco-guide |
+| 4  | luxury-apartments-switzerland-guide |
 
 ---
 
-## 8. Syncing Clean URL Copies
+## Key Conventions
 
-After editing any file in `pages/`, sync copies:
+- **Paths:** Use absolute paths (`/assets/...`) in `blog-post.html`; relative (`../assets/...`) in other `pages/` files
+- **Apostrophes:** Plain `'` in JSON — not escaped `\'`
+- **Nav links:** Home → `/`, Real Estate → `/blog`, About → `/about`, Contact → `/contact`
+- **Logo:** Always links to `/`
+- **Search:** Hidden by default — only shown on icon click via `.open` class
+- **Hamburger:** Uses `#hamburger-btn` selector (NOT `.hamburger-btn`)
+- **Ad slots:** Always `display: none` until real ads are placed
+- **`theme.js`:** Load ONCE in `<head>`, synchronous, never deferred
+- **Images:** All `<img>` use `loading="lazy"` with meaningful `alt` attributes
+- **Cover images:** `coverImage` can be absolute URL or local path starting with `/`
+
+---
+
+## Dark / Light Mode
+
+- Toggle: moon icon (light) / sun icon (dark)
+- `data-theme="dark"` on `<html>`
+- `localStorage` key: `pi-theme`
+- Dark bg: `#0f0f1a` | Light bg: `#ffffff`
+
+---
+
+## Syncing Clean URL Copies
+
+After editing any file in `pages/`, run:
 
 ```powershell
 Copy-Item "pages\about.html" "about\index.html" -Force
@@ -239,79 +308,50 @@ Copy-Item "pages\contact.html" "contact\index.html" -Force
 Copy-Item "pages\privacy-policy.html" "privacy-policy\index.html" -Force
 Copy-Item "pages\disclaimer.html" "disclaimer\index.html" -Force
 Copy-Item "pages\blog-list.html" "blog\index.html" -Force
-Copy-Item "pages\blog-post.html" "blog\[slug]\index.html" -Force
 ```
 
 ---
 
-## 9. All Known Post Slugs
+## Responsive Breakpoints
 
-Update this list whenever a new post is added:
-
-```
-luxury-apartments-dubai-guide
-```
-
----
-
-## 10. Image Handling
-
-- Cover images: `assets/images/posts/[slug]/cover.jpg`
-- In `post.json`, `coverImage` can be absolute URL or local path starting with `/`
-- All `<img>` use `loading="lazy"`
-- Always include meaningful `alt` attributes
+| Breakpoint   | Layout |
+|--------------|--------|
+| ≥1200px      | 3-column: TOC + content + sidebar |
+| 1024–1199px  | Sidebar drops below; 2-col post grid |
+| 768–1023px   | 2-col grid; TOC → accordion |
+| 480–767px    | 1-col grid |
+| 360–479px    | Minimum supported |
 
 ---
 
-## 11. Sidebar — "Trending Reads"
+## Mobile / Responsive Rules
 
-The right sidebar on blog post pages uses data from `index.json` (no extra fetches).
-
-CSS: `position: sticky; top: var(--header-height); height: calc(100vh - var(--header-height));`
-
-On mobile (≤1024px): sidebar becomes static, full-width below article.
-
----
-
-## 12. Google Analytics
-
-Tag ID: `G-01LZXPD19D` — must be in `<head>` of **every** HTML page.
+- **Search input:** Hidden by default (`width: 0; opacity: 0; pointer-events: none`). Revealed via `.search-input-wrapper.open` class on toggle click.
+- **Hamburger button:** Uses `#hamburger-btn` selector (NOT `.hamburger-btn`). Hidden on desktop, shown via `display: flex` at ≤1024px.
+- **Ad slots:** All ad slot classes have `display: none` until real ads are placed.
+- **Sidebar:** Sticky on desktop; becomes static full-width below article on mobile (≤1024px).
+- **Rule:** Never let elements with `position: absolute` be visible on mobile without explicit size constraints.
 
 ---
 
-## 13. Google AdSense Rules
+## AdSense Compliance
 
 - Ad slots marked with `<!-- AD SLOT -->` comments only
 - Positions: below header, between article sections, below "You May Also Like"
 - No pop-ups, no interstitials, no auto-playing video
-- All images have `alt` text, proper meta tags on every page
 - Privacy Policy and Disclaimer pages are AdSense-compliant
 
 ---
 
-## 14. Dark / Light Mode
+## Netlify Deployment
 
-- Toggle: moon icon (light) / sun icon (dark)
-- `data-theme="dark"` on `<html>`
-- `localStorage` key: `pi-theme`
-- `theme.js` loaded **once** in `<head>` (synchronous, not deferred) — never load twice!
-- Dark bg: `#0f0f1a` | Light bg: `#ffffff`
+- **`_redirects` rule:** `/blog/*  /pages/blog-post.html  200`
+- Physical files take priority: `blog/index.html` still serves `/blog/`
+- No need to create `blog/[slug]/index.html` on Netlify — local dev only
 
 ---
 
-## 15. Responsive Breakpoints
-
-| Breakpoint | Layout |
-|---|---|
-| ≥1200px | Full desktop: 3-column post layout (TOC + content + sidebar) |
-| 1024px–1199px | Sidebar drops below; 2-col post grid |
-| 768px–1023px | 2-col grid; TOC → accordion |
-| 480px–767px | 1-col grid |
-| 360px–479px | Minimum supported |
-
----
-
-## 16. Development Server
+## Development Server
 
 ```bash
 # VS Code Live Server (recommended)
@@ -324,16 +364,4 @@ Visit: `http://localhost:5500/` (Live Server) or `http://localhost:3000/`
 
 ---
 
-## 17. Key Conventions
-
-- **Edit source files in `pages/`**, then copy to clean URL folders
-- **Use absolute paths** (`/assets/...`) in `blog-post.html` (works at any URL depth)
-- **Use relative paths** (`../assets/...`) in other `pages/*.html` files
-- **Never load `theme.js` twice** in any page (causes double-toggle = no effect)
-- **Use plain apostrophes** in JSON, not escaped `\'`
-- **All nav links:** Home → `/`, Real Estate → `/blog`, About → `/about`, Contact → `/contact`
-- **Logo always links to** `/`
-
----
-
-*Last updated: April 18, 2026*
+*Last updated: April 19, 2026*

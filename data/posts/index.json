@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "slug": "luxury-apartments-dubai-guide",
     "title": "Luxury Apartments in Dubai: Smart Guide for Modern Buyers (2026)",
     "author": "Sarah Mitchell",
@@ -11,6 +12,7 @@
     "featured": true
   },
   {
+    "id": 2,
     "slug": "luxury-apartments-usa-guide",
     "title": "Luxury Apartments in USA: Complete Guide to Premium Living & Smart Investment (2026)",
     "author": "James Carter",
@@ -22,6 +24,7 @@
     "featured": false
   },
   {
+    "id": 3,
     "slug": "luxury-apartments-monaco-guide",
     "title": "Luxury Apartments in Monaco: Complete Guide to Elite Living (2026)",
     "author": "Elena Dubois",
@@ -33,6 +36,7 @@
     "featured": false
   },
   {
+    "id": 4,
     "slug": "luxury-apartments-switzerland-guide",
     "title": "Luxury Apartments in Switzerland: Complete Guide to Premium Living (2026)",
     "author": "Lukas Meier",

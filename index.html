@@ -237,7 +237,7 @@
         .then(function (r) { return r.ok ? r.json() : []; })
         .catch(function () { return []; })
         .then(function (posts) {
-          posts.sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+          posts.sort(function (a, b) { return (b.date || '').localeCompare(a.date || '') || (b.id || 0) - (a.id || 0); });
           var recent = posts.slice(0, 6);
           var grid = document.getElementById('recent-posts-grid');
           if (!grid || !recent.length) return;

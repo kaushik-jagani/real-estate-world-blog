@@ -37,13 +37,14 @@ Real Estate World is a **static blog** built with pure HTML, CSS, and vanilla Ja
 - **No server-side rendering** — everything is static HTML + client-side JS
 - **JSON-driven content** — each blog post is a `post.json` file
 - **Central index** — `data/posts/index.json` is a flat array of all post metadata, fetched once
-- **Clean URLs** — achieved via `.htaccess` (Apache) + physical `index.html` copies for local dev
+- **Clean URLs** — achieved via `.htaccess` (Apache) + `_redirects` (Netlify) + physical `index.html` copies for local dev
 - **Scalable** — designed to handle 11,000+ posts without performance issues
 
 ### Data flow:
 ```
 User visits /blog/some-slug
-  → blog/some-slug/index.html loads (copy of pages/blog-post.html)
+  → Netlify serves pages/blog-post.html via _redirects rewrite
+    (or locally: blog/some-slug/index.html loads)
   → router.js extracts slug from URL path
   → Fetches /data/posts/index.json (all post metadata, one request)
   → Fetches /data/posts/some-slug/post.json (full content)
@@ -58,8 +59,9 @@ User visits /blog/some-slug
 ```
 d:\Blog\DK\ProperiesGroup\
 │
-├── index.html                          ← HOME PAGE: hero, features, recent posts
+├── index.html                          ← HOME PAGE: hero, recent posts
 ├── .htaccess                           ← Apache rewrite rules for clean URLs
+├── _redirects                          ← Netlify rewrite rules (dynamic blog routing)
 ├── claude.md                           ← AI assistant reference (read before any work)
 │
 ├── docs/
@@ -159,6 +161,7 @@ data/posts/your-new-slug/post.json
 **Step 2:** Add entry to `data/posts/index.json`:
 ```json
 {
+  "id": 5,
   "slug": "your-new-slug",
   "title": "Your Post Title",
   "author": "Admin",
@@ -171,7 +174,7 @@ data/posts/your-new-slug/post.json
 }
 ```
 
-**Step 3:** Create the clean URL folder:
+**Step 3:** Create the clean URL folder (**local dev only** — on Netlify, `_redirects` handles this automatically):
 ```powershell
 # Create folder
 New-Item -ItemType Directory -Path "blog\your-new-slug" -Force
@@ -338,9 +341,10 @@ This file is a **flat JSON array** containing metadata for every published post.
 ```json
 [
   {
+    "id": 1,
     "slug": "luxury-apartments-dubai-guide",
     "title": "Luxury Apartments in Dubai: Smart Guide for Modern Buyers (2026)",
-    "author": "Admin",
+    "author": "Sarah Mitchell",
     "date": "2026-04-18",
     "readTime": "8 min read",
     "category": "Real Estate",
@@ -354,8 +358,10 @@ This file is a **flat JSON array** containing metadata for every published post.
 ### Rules:
 - Must be valid JSON — use double quotes, no trailing commas
 - Use **plain apostrophes** in strings, not escaped `\'`
+- `id` must be an incremental integer — next post gets `max(id) + 1`
 - `slug` must match the folder name in `data/posts/[slug]/`
 - `date` in `YYYY-MM-DD` format for proper sorting
+- Sort order: `date` descending, then `id` descending (tiebreaker for same-day posts)
 - `featured: true` on at most one post (shown as hero card on blog listing)
 - `coverImage` should start with `/` (absolute from root)
 
@@ -365,9 +371,7 @@ This file is a **flat JSON array** containing metadata for every published post.
 
 ### `index.html` (Home — `/`)
 - Hero section with CTA → `/blog`
-- 3 feature cards (Global Coverage, Market Analysis, Expert Guides)
 - Recent articles grid (6 posts from index.json)
-- Bottom CTA
 
 ### `pages/blog-list.html` (Blog — `/blog`)
 - Hero with title + tagline
@@ -408,7 +412,14 @@ This file is a **flat JSON array** containing metadata for every published post.
 
 ## 9. Clean URL System
 
-### Production (Apache):
+### Production — Netlify:
+`_redirects` file (project root):
+```
+/blog/*  /pages/blog-post.html  200
+```
+This serves `blog-post.html` for any `/blog/slug` URL. Physical files take priority (`blog/index.html` still serves `/blog/`). **No need to create `blog/[slug]/index.html` copies on Netlify.**
+
+### Production — Apache:
 `.htaccess` rewrites `/blog/slug` → `pages/blog-post.html?slug=slug`
 
 ### Local development (Live Server):
@@ -494,7 +505,7 @@ Copy-Item "pages\disclaimer.html" "disclaimer\index.html" -Force
 
 ## 13. Search Functionality
 
-The search box is in the header on the blog listing page. It filters posts client-side by title matching. The search input is always visible (no toggle needed).
+The search box is in the header. It filters posts client-side by title matching. The search input is **hidden by default** (`width: 0; opacity: 0; pointer-events: none`) and revealed when the user clicks the search icon, which adds `.open` class to `.search-input-wrapper`.
 
 ---
 
@@ -574,16 +585,25 @@ The architecture is designed for scale:
 
 ## 19. Deployment Checklist
 
+### Netlify:
+- [ ] `_redirects` file in project root with `/blog/*  /pages/blog-post.html  200`
+- [ ] Custom domain configured: `realestate.globalinfonest.com`
+- [ ] Physical `blog/index.html` exists (serves `/blog/` listing)
+- [ ] No need for individual `blog/[slug]/index.html` copies
+
+### General:
 - [ ] All posts have entries in `index.json`
-- [ ] All clean URL copies are synced from `pages/`
-- [ ] Google Analytics tag on every page
-- [ ] `<!-- AD SLOT -->` comments in place for future AdSense
+- [ ] All clean URL copies are synced from `pages/` (for local dev)
+- [ ] Google Analytics tag (`G-01LZXPD19D`) on every page
+- [ ] Ad slots hidden (`display: none`) until real ads placed
 - [ ] Privacy Policy and Disclaimer pages are current
 - [ ] All images have `alt` text
 - [ ] Dark mode works on all pages
 - [ ] Mobile responsive at all breakpoints
+- [ ] Search input hidden by default (`.search-input-wrapper.open` reveals it)
+- [ ] Hamburger button uses `#hamburger-btn` selector
 - [ ] No console errors
-- [ ] `.htaccess` uploaded for Apache (production)
+- [ ] Footer: © 2026 GlobalInfoNest
 
 ---
 
