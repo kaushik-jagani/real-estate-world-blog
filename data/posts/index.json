@@ -1,5 +1,29 @@
 [
   {
+    "id": 6,
+    "slug": "waterfront-properties-dubai",
+    "title": "Dubai Waterfront Living 2026: Coastal Lifestyle, Property Options & Investment Reality",
+    "author": "James Carter",
+    "date": "2026-04-20",
+    "readTime": "8 min read",
+    "category": "Real Estate",
+    "excerpt": "Waterfront living in Dubai is no longer just a luxury concept. Explore practical lifestyle benefits, property types, pricing trends, and smart investment insights for 2026.",
+    "coverImage": "https://images.pexels.com/photos/28940115/pexels-photo-28940115.jpeg",
+    "featured": false
+  },
+  {
+    "id": 5,
+    "slug": "dubai-waterfront-living-guide-2026",
+    "title": "Dubai Waterfront Living Guide 2026: Coastal Homes, Lifestyle & Market Insights",
+    "author": "Sarah Mitchell",
+    "date": "2026-04-20",
+    "readTime": "9 min read",
+    "category": "Real Estate",
+    "excerpt": "Dubai's coastal communities in 2026 offer more than scenic views. Discover waterfront villas, apartments, legal rules, and the latest real estate market trends.",
+    "coverImage": "https://images.pexels.com/photos/31855994/pexels-photo-31855994.jpeg",
+    "featured": true
+  },
+  {
     "id": 1,
     "slug": "luxury-apartments-dubai-guide",
     "title": "Luxury Apartments in Dubai: Smart Guide for Modern Buyers (2026)",
@@ -9,7 +33,7 @@
     "category": "Real Estate",
     "excerpt": "Dubai has become one of the top cities in the world for modern and luxury living. From high-rise towers to beachfront homes, the city offers premium apartments designed for comfort and lifestyle.",
     "coverImage": "/assets/images/posts/luxury-apartments-dubai-guide/cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": 2,
