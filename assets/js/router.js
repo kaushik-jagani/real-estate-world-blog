@@ -1,4 +1,4 @@
-﻿/**
+/**
  * router.js — Page bootstrapper for blog-post.html
  * Reads ?slug= param, fetches data/posts/{slug}/post.json
  * Integrates Google Analytics (G-01LZXPD19D)
@@ -8,7 +8,7 @@
 (function () {
   'use strict';
 
-  var GA_ID      = 'G-01LZXPD19D';
+  var GA_ID      = ''; // G-01LZXPD19D
   var ALL_POSTS  = []; // loaded from /data/posts/index.json (flat array with listing meta)
 
   function loadIndex() {
@@ -27,9 +27,9 @@
 
   /* ── GA helper ────────────────────────────────────────── */
   function gaEvent(name, params) {
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', name, params || {});
-    }
+    // if (typeof window.gtag === 'function') {
+    //   window.gtag('event', name, params || {});
+    // }
   }
 
   /* ── Get slug from URL ────────────────────────────────── */
