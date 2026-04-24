@@ -74,7 +74,7 @@
 - **Scope:** Blog only — we do NOT sell, buy, or broker properties
 - **Category:** "Real Estate" only — no category switcher anywhere
 - **Footer:** © 2026 GlobalInfoNest
-- **Analytics:** Google Analytics `G-01LZXPD19D` — on EVERY HTML page
+- **Analytics:** Google Analytics `G-F9TKTH7W32` — on EVERY HTML page
 - **AdSense:** Ad slots hidden by default (`display: none`) until real ads are placed
 - **Accent color:** `#0EA5E9` (sky blue)
 - **Fonts:** Inter (body) + Playfair Display (headings) via Google Fonts
